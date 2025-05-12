@@ -1,0 +1,265 @@
+html {
+  font-family: "Montserrat", sans-serif;
+}
+
+.usersName{
+  font-family: 'Caveat', cursive;
+  color: #cfcbcb;
+}
+
+span{
+  color: #eeff04
+}
+
+
+.container {
+  min-height: 100vh; /* Το container να καλύπτει τουλάχιστον το ύψος της οθόνης */
+  margin: 0;
+  background-color: #f7f2f3;
+  background-image: url("https://www.transparenttextures.com/patterns/cubes.png");
+  padding-top: 0px;
+  display: flex;
+  flex-direction: column;
+  
+}
+
+  
+  header {
+    position: fixed;   /* Κρατάει το header σταθερό στην κορυφή */
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 80px;
+    background-color:#eeff04;
+    display: flex;       /* Χρησιμοποιούμε flexbox για καλύτερη ευθυγράμμιση */
+    align-items: center; /* Κεντράρει κάθετο το περιεχόμενο (αν χρειάζεται) */
+    padding-left: 20px;  /* Απόσταση από την αριστερή πλευρά */
+    justify-content: space-between;
+    letter-spacing: 2px;
+ 
+  }
+
+ 
+  
+  h1 {
+    margin: 0;          /* Καταργεί τα προεπιλεγμένα περιθώρια του h1 */
+    font-size: 30px;     /* Ρυθμίζεις το μέγεθος της γραμματοσειράς αν το θέλεις */
+    color: aliceblue;
+    text-shadow: 1px 2px 5px black; 
+    font-family: 'Karla', sans-serif;
+    letter-spacing: 5%;
+  }
+
+
+
+  .notes-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 100px; /* Απόσταση από το header */
+    min-height: 100vh; /* Εξασφαλίζει ότι η περιοχή περιεχομένου καλύπτει το ύψος της οθόνης */
+  }
+
+
+  .notes{
+    display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  justify-content: flex-start; /* Το περιεχόμενο ξεκινά από πάνω */
+  width: 100%; /* Καταλαμβάνει όλο το πλάτος */
+  margin-bottom: 20px; /* Απόσταση από τις σημειώσεις */
+  position: sticky; /* Διατηρεί τη φόρμα στη θέση της */
+  top: 100px; /* Θέση κάτω από το header */
+  z-index: 10; /* Εμφανίζεται πάνω από τις σημειώσεις */
+
+
+  }
+  
+  .notes input,
+.notes textarea {
+  width: 30%; 
+  padding: 12px; /* Προσθήκη padding για να υπάρχει χώρος γύρω από το κείμενο */
+  margin:0; /* Κενό από πάνω και κάτω */
+  border-radius: 20px; /* Στρογγυλεμένες γωνίες */
+  border: 8px solid #e7e7e7; /* Ελαφρύ περίγραμμα */
+  font-size: 1rem; /* Κανονικό μέγεθος γραμματοσειράς */
+  font-family: "Montserrat", sans-serif; /* Ορισμός γραμματοσειράς */
+  box-shadow: 2 2px 10px rgba(0, 0, 0, 0.1); /* Ελαφριά σκιά για καλύτερη εμφάνιση */
+  outline: none; /* Αφαίρεση του outline (προβληματικό στη μορφοποίηση του browser) */
+  text-align: center;
+  resize: none;
+  
+}
+
+.notes input:focus,
+.notes textarea:focus {
+  border-color:  rgb(233, 255, 34) ;/* Αλλαγή του χρώματος του περιγράμματος όταν το πεδίο είναι επιλεγμένο */
+  box-shadow: 0 0 10px rgba(245, 186, 19, 0.5); /* Ελαφριά σκιά όταν είναι επιλεγμένο */
+
+}
+
+.notes input::placeholder,
+.notes textarea::placeholder {
+  text-align: center; /* Κεντράρισμα του placeholder οριζόντια */
+  line-height: 1.5;
+  font-family: 'Karla', sans-serif;
+}
+
+.notes-list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start; /* Ευθυγράμμιση από αριστερά */
+  gap: 15px;
+  margin-bottom: 2rem;
+  width: 100%;
+  box-sizing: border-box;
+  margin-top: 10px;
+  padding-left: 15px; /* Διασφαλίζει περιθώριο από αριστερά */
+  padding-right: 15px;
+}
+
+.note {
+  background-color: #ffffe4;
+  border: 4px solid #eeff04;
+  border-radius: 10px;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+  padding: 15px;
+  width: 200px;
+  word-wrap: break-word;
+  text-align: left;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  position: relative;
+  margin-left: 0; /* Αφαιρούμε το περιθώριο αριστερά */
+  margin-right: 0; /* Αφαιρούμε το περιθώριο δεξιά */
+}
+
+.notes-list h2 {
+  border: 2px solid #ffe608; /* Ελαφρώς πιο έντονο και ομαλό περίγραμμα */
+  border-radius: 10px; /* Στρογγυλεμένες γωνίες */
+  background-color: #fffbea; /* Απαλό κίτρινο φόντο */
+  color: #333; /* Σκούρο κείμενο για καλή αντίθεση */
+  font-family: 'Montserrat', sans-serif; /* Μοντέρνα και καθαρή γραμματοσειρά */
+  font-size: 1.2rem; /* Ελαφρώς μεγαλύτερο μέγεθος */
+  font-weight: bold; /* Έντονο κείμενο */
+  padding: 10px 15px; /* Απόσταση γύρω από τον τίτλο */
+  margin-bottom: 23px; /* Χώρος κάτω από τον τίτλο */
+  text-align: center; /* Κεντράρει το κείμενο */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Ελαφριά σκιά για βάθος */
+  transition: transform 0.2s ease, box-shadow 0.2s ease; /* Animation */
+  margin-top: 1.7rem;
+ 
+}
+
+.notes-list p{
+  text-align: center;
+  margin-bottom: 1.5rem;
+}
+
+
+/* Όταν το ποντίκι περνάει πάνω από ένα note */
+.note:hover {
+  transform: translateY(-5px); /* Σηκώνει λίγο το note */
+  box-shadow: 0px 6px 10px rgba(0, 0, 0, 0.9); /* Εντονότερη σκιά */
+}
+
+
+footer {
+  position: fixed; /* Σταθερό στο κάτω μέρος */
+  bottom: 0; /* Κολλημένο στο κάτω μέρος της οθόνης */
+  left: 0;
+  width: 100%; /* Καλύπτει όλο το πλάτος */
+  text-align: center; /* Κεντράρει το περιεχόμενο */
+  color: #b3b0b0; /* Χρώμα κειμένου */
+  font-family: "Montserrat", sans-serif; /* Γραμματοσειρά */
+  z-index: 1000; /* Εξασφαλίζει ότι το footer είναι πάνω από άλλα στοιχεία */
+   height: 40px;
+   box-shadow: 0 -4px 7px rgba(0, 0, 0, 0.4); /* Σκιά πάνω από το footer */
+   margin: 0;
+}
+
+/* Δημιουργία του shake animation στο button */
+@keyframes shake {
+  0% {
+    transform: translateX(0); /* Ξεκινά στην αρχική του θέση */
+  }
+  25% {
+    transform: translateX(-10px); /* Μετακινείται αριστερά */
+  }
+  50% {
+    transform: translateX(10px); /* Μετακινείται δεξιά */
+  }
+  75% {
+    transform: translateX(-10px); /* Επιστρέφει αριστερά */
+  }
+  100% {
+    transform: translateX(0); /* Επιστρέφει στην αρχική του θέση */
+  }
+}
+
+/* Εφαρμογή του animation στο κουμπί */
+.submitButton {
+  padding: 10px 20px; /* Άνετο padding */
+  font-size: 0.9rem; /* Λίγο μεγαλύτερη γραμματοσειρά */
+  font-weight: bold; /* Έντονο κείμενο */
+  color: #ffffff; /* Λευκό κείμενο */
+  background: linear-gradient(135deg, #eeff04, #ffd54d); /* Όμορφο gradient */
+  border: none; /* Αφαίρεση default border */
+  border-radius: 30px; /* Στρογγυλεμένες γωνίες */
+  cursor: pointer;
+  transition: transform 0.3s ease, box-shadow 0.3s ease; /* Smooth transitions */
+  box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.2); /* Απαλή σκιά */
+  margin-top: 7px;
+}
+
+.submitButton:hover {
+  transform: scale(1.1); /* Ελαφρύ zoom */
+  box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.3); /* Εντονότερη σκιά */
+  background: linear-gradient(135deg, #f39c12, #e67e22); /* Αλλαγή gradient */
+}
+
+.submitButton:active {
+  transform: scale(0.8); /* Μικρή συρρίκνωση κατά το κλικ */
+  box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.2); /* Ελαφρύτερη σκιά */
+}
+
+/* Στυλ για το κουμπί διαγραφής */
+.deleteButton {
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+  background-color: red; /* Κόκκινο χρώμα */
+  color: white;
+  border: none;
+  padding: 2px 9px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 0.9rem;
+
+}
+
+.deleteButton:hover {
+  background-color: darkred; /* Σκούρο κόκκινο κατά το hover */
+}
+
+.editButton{
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background-color: #4caf50; /* Πράσινο χρώμα */
+  color: white;
+  border: none;
+  padding: 5px 5px;
+  border-radius: 5px;
+  font-size: 0.8rem;
+  cursor: pointer;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+  transition: background-color 0.2s ease, transform 0.2s ease;
+
+
+}
+
+.editButton:hover {
+  background-color: #45a049;
+  transform: scale(1.1);
+}
