@@ -8,10 +8,12 @@ function Notes() {
   });
 
   const [newNotes, setNewNotes] = useState([]);
+  const [isEditing, setIsEditing] = useState(false); // Προσθέτουμε έναν state για να ξέρουμε αν επεξεργαζόμαστε
+  const [editIndex, setEditIndex] = useState(null); // Αποθηκεύουμε το index της σημείωσης που επεξεργαζόμαστε
 
   useEffect(() => {
     axios
-      .get("http://localhost:3000/notes")
+      .get("http://localhost:5000/notes")
       .then((response) => {
         // Αν η λίστα είναι άδεια, προσθέτουμε την προεπιλεγμένη σημείωση
         if (response.data.length === 0) {
@@ -34,7 +36,7 @@ function Notes() {
     }));
   }
 
-  // Χειριστής για την προσθήκη σημείωσης
+  // Χειριστής για την προσθήκη ή επεξεργασία σημείωσης
   function handleClick() {
     // Αποτροπή κενών εισαγωγών
     if (!note.title.trim() || !note.content.trim()) {
@@ -42,22 +44,41 @@ function Notes() {
       return;
     }
 
-    axios
-      .post("http://localhost:3000/notes", note)
-      .then((response) => {
-        setNewNotes((prevNotes) => [response.data, ...prevNotes]);
-        setNote({ title: "", content: "" });
-      })
-      .catch((error) => {
-        console.error("Error adding note:", error);
-      });
+    if (isEditing) {
+      // Επεξεργασία σημείωσης
+      const noteToEdit = newNotes[editIndex];
+      axios
+        .put(`http://localhost:5000/notes/${noteToEdit.id}`, note)
+        .then((response) => {
+          const updatedNotes = [...newNotes];
+          updatedNotes[editIndex] = response.data;
+          setNewNotes(updatedNotes); // Ενημερώνουμε τις σημειώσεις
+          setIsEditing(false); // Επιστρέφουμε την κατάσταση στην προσθήκη
+          setEditIndex(null); // Αδειάζουμε το index της επεξεργασίας
+          setNote({ title: "", content: "" }); // Αδειάζουμε τα πεδία
+        })
+        .catch((error) => {
+          console.error("Error updating note:", error);
+        });
+    } else {
+      // Προσθήκη νέας σημείωσης
+      axios
+        .post("http://localhost:5000/notes", note)
+        .then((response) => {
+          setNewNotes((prevNotes) => [response.data, ...prevNotes]);
+          setNote({ title: "", content: "" });
+        })
+        .catch((error) => {
+          console.error("Error adding note:", error);
+        });
+    }
   }
 
   // Χειριστής για τη διαγραφή σημείωσης
   function handleDelete(index) {
     const noteToDelete = newNotes[index];
     axios
-      .delete(`http://localhost:3000/notes/${noteToDelete.id}`)
+      .delete(`http://localhost:5000/notes/${noteToDelete.id}`)
       .then(() => {
         setNewNotes((prevNotes) => prevNotes.filter((_, i) => i !== index));
       })
@@ -69,7 +90,9 @@ function Notes() {
   // Χειριστής για την επεξεργασία σημείωσης
   function handleEdit(index) {
     const noteToEdit = newNotes[index];
-    setNote(noteToEdit);  // Φόρτωση της σημείωσης για επεξεργασία
+    setNote(noteToEdit); // Φόρτωση της σημείωσης για επεξεργασία
+    setIsEditing(true); // Ενεργοποιούμε την κατάσταση επεξεργασίας
+    setEditIndex(index); // Αποθηκεύουμε το index της σημείωσης που επεξεργαζόμαστε
   }
 
   // Αν δεν υπάρχουν σημειώσεις, εμφανίζουμε την προεπιλεγμένη σημείωση
@@ -98,7 +121,7 @@ function Notes() {
           rows={3}
         />
         <button className="submitButton" onClick={handleClick}>
-          Add Note
+          {isEditing ? "Confirm Edit" : "Add Note"} {/* Εμφανίζουμε το κατάλληλο κείμενο στο κουμπί */}
         </button>
 
         <div className="notes-list">
