@@ -2,13 +2,14 @@ html {
   font-family: "Montserrat", sans-serif;
 }
 
+
 .usersName{
   font-family: 'Caveat', cursive;
   color: #cfcbcb;
 }
 
 span{
-  color: #eeff04
+  color: #ffff00
 }
 
 
@@ -114,7 +115,7 @@ span{
   margin-bottom: 2rem;
   width: 100%;
   box-sizing: border-box;
-  margin-top: 10px;
+  margin-top: 1.3rem;
   padding-left: 15px; /* Διασφαλίζει περιθώριο από αριστερά */
   padding-right: 15px;
 }
@@ -154,6 +155,7 @@ span{
 .notes-list p{
   text-align: center;
   margin-bottom: 1.5rem;
+  
 }
 
 
@@ -173,9 +175,10 @@ footer {
   color: #b3b0b0; /* Χρώμα κειμένου */
   font-family: "Montserrat", sans-serif; /* Γραμματοσειρά */
   z-index: 1000; /* Εξασφαλίζει ότι το footer είναι πάνω από άλλα στοιχεία */
-   height: 40px;
-   box-shadow: 0 -4px 7px rgba(0, 0, 0, 0.4); /* Σκιά πάνω από το footer */
+   height: 10px;
+   
    margin: 0;
+   padding-bottom: 2rem;
 }
 
 /* Δημιουργία του shake animation στο button */
