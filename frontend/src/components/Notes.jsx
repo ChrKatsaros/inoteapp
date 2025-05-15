@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 
 // Ανάλογα με το περιβάλλον, χρησιμοποιεί κατάλληλο URL
-const API_URL = "http://localhost:5000";
+const API_URL = "https://inoteapp-backend.onrender.com";
 
 function Notes() {
   const [note, setNote] = useState({
