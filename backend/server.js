@@ -29,7 +29,7 @@ db.connect();
 app.use(cors());
 app.use(bodyParser.json());
 
-// 📌 Routes
+//  Routes
 app.get("/", (req, res) => {
   res.send("Welcome to iNotes");
 });

@@ -2,7 +2,7 @@ import React from "react";
 
 function Header() {
 return (<header> 
-          <h1 className="bi bi-journal-bookmark"> iNote</h1>
+          <h1 className="bi bi-journal-bookmark"> iNotes</h1>
         </header>)
 }
 

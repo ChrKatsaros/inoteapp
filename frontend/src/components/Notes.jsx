@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 
+// Ανάλογα με το περιβάλλον, χρησιμοποιεί κατάλληλο URL
+const API_URL = "http://localhost:5000";
+
 function Notes() {
   const [note, setNote] = useState({
     title: "",
@@ -13,12 +16,11 @@ function Notes() {
 
   useEffect(() => {
     axios
-      .get("http://localhost:5000/notes")
+      .get(`${API_URL}/notes`)
       .then((response) => {
         if (response.data.length === 0) {
           setNewNotes([]);
         } else {
-          // Προσθέτουμε το πεδίο completed αν δεν υπάρχει
           const notesWithCompleted = response.data.map((note) => ({
             ...note,
             completed: false,
@@ -48,12 +50,12 @@ function Notes() {
     if (isEditing) {
       const noteToEdit = newNotes[editIndex];
       axios
-        .put(`http://localhost:5000/notes/${noteToEdit.id}`, note)
+        .put(`${API_URL}/notes/${noteToEdit.id}`, note)
         .then((response) => {
           const updatedNotes = [...newNotes];
           updatedNotes[editIndex] = {
             ...response.data,
-            completed: newNotes[editIndex].completed || false, // κρατάμε την completed τιμή
+            completed: newNotes[editIndex].completed || false,
           };
           setNewNotes(updatedNotes);
           setIsEditing(false);
@@ -65,7 +67,7 @@ function Notes() {
         });
     } else {
       axios
-        .post("http://localhost:5000/notes", note)
+        .post(`${API_URL}/notes`, note)
         .then((response) => {
           setNewNotes((prevNotes) => [
             { ...response.data, completed: false },
@@ -82,7 +84,7 @@ function Notes() {
   function handleDelete(index) {
     const noteToDelete = newNotes[index];
     axios
-      .delete(`http://localhost:5000/notes/${noteToDelete.id}`)
+      .delete(`${API_URL}/notes/${noteToDelete.id}`)
       .then(() => {
         setNewNotes((prevNotes) => prevNotes.filter((_, i) => i !== index));
       })
@@ -114,9 +116,8 @@ function Notes() {
   return (
     <div className="notes-container">
       <div className="notes">
-      
         <h2 className="usersName">
-          <span>i</span>Note
+          <span>i</span>Notes
         </h2>
         <input
           name="title"
@@ -131,7 +132,6 @@ function Notes() {
           onChange={handleInput}
           rows={3}
         />
-       
         <button className="submitButton" onClick={handleClick}>
           {isEditing ? "Confirm Edit" : "Add Note"}
         </button>
@@ -148,26 +148,30 @@ function Notes() {
             newNotes.map((theNotes, index) => (
               <div className="note" key={theNotes.id}>
                 <input
-                  type="checkbox" 
+                  type="checkbox"
                   checked={theNotes.completed || false}
                   onChange={() => toggleCompleted(index)}
-                 style={{
-          marginRight: "10px",
-          transform: "scale(1.2)", // Μεγαλώνουμε το checkbox για να το κάνουμε πιο εμφανές
-          accentColor: "yellow", // Ρυθμίζουμε το χρώμα του checkbox σε μωβ
-        }}
+                  style={{
+                    marginRight: "10px",
+                    transform: "scale(1.2)",
+                    accentColor: "yellow",
+                  }}
                 />
                 <h2
                   style={{
-      textDecoration: theNotes.completed ? "line-through" : "none",
-      color: theNotes.completed ? "red" : "black", // Χρώμα κειμένου κόκκινο αν ολοκληρωθεί
-    }}
+                    textDecoration: theNotes.completed
+                      ? "line-through"
+                      : "none",
+                    color: theNotes.completed ? "red" : "black",
+                  }}
                 >
                   {theNotes.title}
                 </h2>
                 <p
                   style={{
-                    textDecoration: theNotes.completed ? "line-through" : "none",
+                    textDecoration: theNotes.completed
+                      ? "line-through"
+                      : "none",
                   }}
                 >
                   {theNotes.content}
