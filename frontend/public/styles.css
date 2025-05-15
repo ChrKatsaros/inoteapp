@@ -266,3 +266,20 @@ footer {
   background-color: #45a049;
   transform: scale(1.1);
 }
+
+
+/* Media query για μικρές οθόνες */
+@media (max-width: 600px) {
+  .notes-list {
+    flex-direction: column;  /* Κάνουμε στήλη */
+    align-items: center;     /* Κεντράρουμε τα στοιχεία */
+    justify-content: center; /* Προαιρετικό: κεντράρει και οριζόντια */
+    padding-left: 0;         /* Αφαιρούμε padding αριστερά */
+    padding-right: 0;        /* Αφαιρούμε padding δεξιά */
+  }
+
+  .note {
+    width: 90%;  /* Κάνει τις σημειώσεις πιο φαρδιές στην μικρή οθόνη */
+    max-width: 400px; /* Όριο πλάτους για να μη γίνουν τεράστιες */
+  }
+}
